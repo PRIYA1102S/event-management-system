@@ -21,7 +21,7 @@ const EventForm = ({ onEventCreated, currentEvent, selectedProfile, userTimezone
   useEffect(() => {
     const fetchProfiles = async () => {
       try {
-        const res = await axios.get(`${process.env.API_BASE_URL}/api/profiles`);
+        const res = await axios.get(`${API_BASE_URL}/api/profiles`);
         const formatted = res.data.map(p => ({
           value: p._id,
           label: p.name,
