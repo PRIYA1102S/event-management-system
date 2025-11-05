@@ -15,12 +15,13 @@ const EventForm = ({ onEventCreated, currentEvent, selectedProfile, userTimezone
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [error, setError] = useState('');
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   // Fetch profiles for dropdown
   useEffect(() => {
     const fetchProfiles = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/profiles');
+        const res = await axios.get(`${process.env.API_BASE_URL}/api/profiles`);
         const formatted = res.data.map(p => ({
           value: p._id,
           label: p.name,
@@ -76,11 +77,11 @@ const EventForm = ({ onEventCreated, currentEvent, selectedProfile, userTimezone
         end: endMoment.toISOString(),
       };
 
-      if (currentEvent) {
-        await axios.patch(`http://localhost:5000/api/events/${currentEvent._id}`, eventData);
-      } else {
-        await axios.post('http://localhost:5000/api/events', eventData);
-      }
+     if (currentEvent) {
+  await axios.patch(`${API_BASE_URL}/api/events/${currentEvent._id}`, eventData);
+} else {
+  await axios.post(`${API_BASE_URL}/api/events`, eventData);
+}
 
       if (onEventCreated) onEventCreated();
       toast.success(currentEvent ? 'Event updated successfully!' : 'Event created successfully!');

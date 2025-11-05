@@ -9,12 +9,14 @@ const timezoneOptions = moment.tz.names().map(tz => ({ value: tz, label: tz }));
 const ProfileForm = ({ onProfileCreated }) => {
   const [name, setName] = useState('');
   const [timezone, setTimezone] = useState(null);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const newProfile = { name, timezone: timezone ? timezone.value : 'UTC' };
-      await axios.post('http://localhost:5000/api/profiles', newProfile);
+      await axios.post(`${API_BASE_URL}/api/profiles`, newProfile);
       setName('');
       setTimezone(null);
       if (onProfileCreated) {

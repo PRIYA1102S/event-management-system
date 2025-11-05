@@ -6,6 +6,7 @@ const EventList = ({ profileId, userTimezone, onEditEvent }) => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   const fetchEvents = async () => {
     if (!profileId) {
@@ -17,7 +18,7 @@ const EventList = ({ profileId, userTimezone, onEditEvent }) => {
       setLoading(true);
       setError("");
       const response = await axios.get(
-        `http://localhost:5000/api/events/profile/${profileId}`
+`${API_BASE_URL}/api/events/profile/${profileId}`
       );
       setEvents(response.data);
     } catch (err) {
